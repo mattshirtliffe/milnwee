@@ -2,10 +2,10 @@
 
 namespace Example\Http\Controllers\Auth;
 
-use Example\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class PasswordController extends Controller
+class PasswordController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------

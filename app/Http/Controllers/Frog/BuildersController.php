@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Http\Controllers\Function;
+namespace Example\Http\Controllers\Frog;
 
 use Example\MilnweeCore\Traits\AdminCrud;
 use Example\Http\MilnweeCore\Controllers\MilnweeCoreController;

@@ -4,11 +4,11 @@ namespace Example\Http\Controllers\Auth;
 
 use Example\User;
 use Validator;
-use Example\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
