@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Http\Middleware;
+namespace Example\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

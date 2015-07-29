@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee;
+namespace Example;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

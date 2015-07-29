@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Jobs;
+namespace Example\Jobs;
 
 use Illuminate\Bus\Queueable;
 

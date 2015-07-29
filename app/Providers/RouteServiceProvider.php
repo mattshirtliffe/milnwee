@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Providers;
+namespace Example\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Milnwee\Http\Controllers';
+    protected $namespace = 'Example\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

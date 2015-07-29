@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Http\MilnweeCore\Controllers;
+namespace Example\Http\MilnweeCore\Controllers;
 
-use App\User;
-use App\Http\Controllers\Controller;
-
-class UserController extends Controller
+class AdminController extends MilnweeCoreController
 {
-	/**
-	 * Show the profile for the given user.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function index() {
-		
+	public function getIndex() {
+		return view('milnwee_core.admin.index');
+	}
+	
+	public function getTest() {
+		return view('milnwee_core.admin.test');
 	}
 }

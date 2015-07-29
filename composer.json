@@ -19,7 +19,7 @@
             "database"
         ],
         "psr-4": {
-            "Milnwee\\": "app/"
+            "Example\\": "app/"
         }
     },
     "autoload-dev": {

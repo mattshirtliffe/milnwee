@@ -1,8 +1,8 @@
 <?php
 
-namespace Milnwee\Http\Controllers\Auth;
+namespace Example\Http\Controllers\Auth;
 
-use Milnwee\Http\Controllers\Controller;
+use Example\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

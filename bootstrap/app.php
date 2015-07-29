@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    Milnwee\Http\Kernel::class
+    Example\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    Milnwee\Console\Kernel::class
+    Example\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Milnwee\Exceptions\Handler::class
+    Example\Exceptions\Handler::class
 );
 
 /*

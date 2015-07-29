@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Console\Commands;
+namespace Example\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: Milnwee
-        psr4_prefix: Milnwee
+        namespace: Example
+        psr4_prefix: Example
         src_path: app

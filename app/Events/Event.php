@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Events;
+namespace Example\Events;
 
 abstract class Event
 {

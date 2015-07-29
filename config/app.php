@@ -140,9 +140,10 @@ return [
         /*
          * Application Service Providers...
          */
-        Milnwee\Providers\AppServiceProvider::class,
-        Milnwee\Providers\EventServiceProvider::class,
-        Milnwee\Providers\RouteServiceProvider::class,
+        Example\Providers\AppServiceProvider::class,
+        Example\Providers\EventServiceProvider::class,
+        Example\Providers\RouteServiceProvider::class,
+        Example\MilnweeCore\Providers\MilnweeCoreViewComposerProviders::class,
 
     ],
 

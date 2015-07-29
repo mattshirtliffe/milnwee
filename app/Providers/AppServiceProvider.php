@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Providers;
+namespace Example\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

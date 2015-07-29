@@ -1,6 +1,6 @@
 <?php
 
-namespace Milnwee\Http;
+namespace Example\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \Milnwee\Http\Middleware\EncryptCookies::class,
+        \Example\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \Milnwee\Http\Middleware\VerifyCsrfToken::class,
+        \Example\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,8 +26,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Milnwee\Http\Middleware\Authenticate::class,
+        'auth' => \Example\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \Milnwee\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \Example\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }
