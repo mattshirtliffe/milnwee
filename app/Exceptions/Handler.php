@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Milnwee\Exceptions;
 
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;

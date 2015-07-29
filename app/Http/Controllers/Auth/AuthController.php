@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Milnwee\Http\Controllers\Auth;
 
-use App\User;
+use Milnwee\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Milnwee\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => App\User::class,
+        'model'  => Milnwee\User::class,
         'key'    => '',
         'secret' => '',
     ],
