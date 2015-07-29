@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Http\Controllers;
+namespace Example\Http\Controllers\Function;
 
 use Example\MilnweeCore\Traits\AdminCrud;
 use Example\Http\MilnweeCore\Controllers\MilnweeCoreController;
 
-class EventsController extends MilnweeCoreController
+class BuildersController extends MilnweeCoreController
 {
 	use AdminCrud;
 }

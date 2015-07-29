@@ -10,9 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-require_once('/MilnweeCore/routes.php');
-
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/admin', function () {
+    echo "this is the plain admin response";
 });

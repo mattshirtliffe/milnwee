@@ -17,7 +17,6 @@ class AdminMenuViewComposer
     public function __construct()
     {
         echo "<pre>";
-        print_r(get_declared_classes());
         $classes_with_possible_menu = array();
         
         foreach (get_declared_classes() as $class_name) {

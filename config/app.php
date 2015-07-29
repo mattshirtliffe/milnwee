@@ -143,6 +143,7 @@ return [
         Example\Providers\AppServiceProvider::class,
         Example\Providers\EventServiceProvider::class,
         Example\Providers\RouteServiceProvider::class,
+        Example\MilnweeCore\Providers\AdminAutoCrud::class,
         Example\MilnweeCore\Providers\MilnweeCoreViewComposerProviders::class,
 
     ],

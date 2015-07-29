@@ -13,6 +13,16 @@ class MilnweeCoreViewComposerProviders extends ServiceProvider
      */
     public function boot()
     {
+        // foreach (glob(base_path() . '/app/Http/Controllers/*.php') as $filename) {
+        //     include $filename;
+            
+        //     echo $filename;
+        //     echo "<br>";
+        //     $Class = new $filename;
+        // }
+        // die;
+                
+        
         // Using class based composers...
         view()->composer(
             'milnwee_core.admin.elements.admin_menu', 'Example\Http\MilnweeCore\ViewComposers\AdminMenuViewComposer'
