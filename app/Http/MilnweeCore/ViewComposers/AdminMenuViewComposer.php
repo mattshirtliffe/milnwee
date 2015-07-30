@@ -16,12 +16,10 @@ class AdminMenuViewComposer
      */
     public function __construct()
     {
-        echo "<pre>";
-        $classes_with_possible_menu = array();
+        $classes = $this->app->data_thing;
         
-        foreach (get_declared_classes() as $class_name) {
-            
-        }
+        print_r($classes);
+        die;
     }
 
     /**

@@ -1,2 +1,5 @@
 <h2>this is the admin menu</h2>
-{{$test_data}}
+
+@foreach ($menu_items as $url => $name)
+    <p><a href="{{ url($url) }}">{{$name}}</a></p>
+@endforeach

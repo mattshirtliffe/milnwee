@@ -16,6 +16,7 @@ class MilnweeCoreController extends BaseController
 		$this->full_class_name = get_class($this);
 		$this->alias = substr($this->full_class_name, strrpos($this->full_class_name, '\\') + 1);
 		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
+		$this->model_class_plural = Pluralizer::plural(str_replace('Controller', '', $this->alias));
 		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
 	}
 }

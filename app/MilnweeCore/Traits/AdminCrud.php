@@ -11,11 +11,18 @@ trait AdminCrud {
 	public function __construct() {
 		parent::__construct();
 		
-		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);		
+		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);
 	}
 		
 	public function getIndex() {
-		echo "index method of " . $this->model_class;
+		return view('milnwee_core.admin.index');
 	}
 	
+	public function getEdit() {
+		return view('milnwee_core.admin.edit');
+	}
+	
+	public function getAdd() {
+		return view('milnwee_core.admin.add');
+	}
 }
