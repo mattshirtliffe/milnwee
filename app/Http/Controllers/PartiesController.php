@@ -2,12 +2,10 @@
 
 namespace Example\Http\Controllers;
 
-use Example\Http\MilnweeCore\Controllers\MilnweeCoreController;
+use Illuminate\Routing\Controller as BaseController;
 use Example\MilnweeCore\Traits\AdminCrud;
-use Example\MilnweeCore\Traits\AdminMenuInclude;
 
-class PartiesController extends MilnweeCoreController
+class PartiesController extends BaseController
 {
-	use AdminCrud;
-	use AdminMenuInclude;
+	use AdminCrud;	
 }

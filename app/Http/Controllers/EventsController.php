@@ -2,12 +2,10 @@
 
 namespace Example\Http\Controllers;
 
-use Example\Http\MilnweeCore\Controllers\MilnweeCoreController;
-use Example\MilnweeCore\Traits\AdminCrud;
-use Example\MilnweeCore\Traits\AdminMenuInclude;
+use Illuminate\Routing\Controller as BaseController;
+use Example\MilnweeCore\Traits\AdminCrud as AdminCrud;
 
-class EventsController extends MilnweeCoreController
+class EventsController extends BaseController
 {
 	use AdminCrud;
-	use AdminMenuInclude;
 }

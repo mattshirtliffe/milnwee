@@ -23,14 +23,11 @@ class AdminAutoCrudProvider extends ServiceProvider
                 $class_name = $this->alias = substr($name, strrpos($name, '/') + 1);
                 $class_name = str_replace('.php', '', $class_name);
                 $full_class_name = '\Example\Http\\' . $class_name;
-                
                 $Class = new $full_class_name;
                 
-                if (in_array('Example\MilnweeCore\Traits\AdminMenuInclude', class_uses($full_class_name))) {
+                if (in_array('Example\MilnweeCore\Traits\AdminCrud', class_uses($full_class_name))) {
                     $admin_menu_items['admin/' . $Class->url_slug] = $Class->model_class_plural;
                 }
-                
-                
             }
         }
                 
