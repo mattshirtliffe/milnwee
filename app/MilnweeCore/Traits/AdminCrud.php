@@ -20,9 +20,12 @@ trait AdminCrud {
 		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
 		$this->model_class_plural = Pluralizer::plural(str_replace('Controller', '', $this->alias));
 		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
+	}
+	
+	public function initialise_admin_routes() {
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);
 	}
-		
+	
 	public function getIndex() {
 		return view('milnwee_core.admin.index');
 	}

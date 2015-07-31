@@ -7,5 +7,5 @@ use Example\MilnweeCore\Traits\AdminCrud as AdminCrud;
 
 class EventsController extends BaseController
 {
-	use AdminCrud;
+	use AdminCrud;	
 }
