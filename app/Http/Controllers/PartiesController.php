@@ -7,5 +7,5 @@ use Example\MilnweeCore\Traits\AdminCrud;
 
 class PartiesController extends BaseController
 {
-	use AdminCrud;	
+	// use AdminCrud;	
 }

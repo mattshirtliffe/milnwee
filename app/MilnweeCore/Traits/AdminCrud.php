@@ -26,15 +26,14 @@ trait AdminCrud {
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);
 	}
 	
-	public function getIndex() {
-		return view('milnwee_core.admin.index');
+	public function getIndex($view = 'milnwee_core.admin.index') {
+		return view($view);
 	}
 	
-	public function getEdit() {
-		return view('milnwee_core.admin.edit');
+	public function getEdit($view = 'milnwee_core.admin.edit') {
+		return view($view);
 	}
-	
-	public function getAdd() {
-		return view('milnwee_core.admin.add');
+	public function getAdd($view = 'milnwee_core.admin.add') {
+		return view($view);
 	}
 }
