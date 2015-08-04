@@ -27,7 +27,24 @@ trait AdminCrud {
 	}
 	
 	public function getIndex() {
-		return view('milnwee_core.admin.index');
+		
+		$data = array(
+			'page_data' => array(
+				'model_class_singular' => $this->model_class,
+				'model_class_plural' => $this->model_class_plural,
+			)
+		);
+		$static_class = '\\Example\\' . $this->model_class;
+		$instantiated_class = new $static_class();
+		$records = $static_class::all()->toArray();
+		
+		debug($records);
+		
+		$data['records'] = $records;
+		
+		$data['attributes'] = $instantiated_class->attributesToArray();
+		
+		return view('milnwee_core.admin.index', $data);
 	}
 	
 	public function getEdit() {

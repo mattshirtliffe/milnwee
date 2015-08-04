@@ -26,14 +26,9 @@ class AdminAutoCrudProvider extends ServiceProvider
                 $Class = new $full_class_name;
                 if (method_exists($Class, 'initialise_admin_routes')) {
                     $Class->initialise_admin_routes();
-                }                
+                }
             }
-        }
-                
-        // now attach view compoer for admin side bar
-        view()->composer('milnwee_core.admin.elements.admin_menu', function($view) use ($admin_menu_items) {
-            $view->with('menu_items', $admin_menu_items);
-        });
+        }        
     }
 
     /**
