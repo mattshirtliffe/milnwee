@@ -5,8 +5,6 @@ namespace Example\MilnweeCore\Traits;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Pluralizer as Pluralizer;
 
-use Example\MilnweeCore\Traits\AdminVariableSetup;
-
 trait AdminCrud {
 	
 	public $full_class_name;
@@ -35,14 +33,9 @@ trait AdminCrud {
 			)
 		);
 		$static_class = '\\Example\\' . $this->model_class;
-		$instantiated_class = new $static_class();
-		$records = $static_class::all()->toArray();
 		
-		debug($records);
+		$data['records'] = $static_class::all()->toArray();;
 		
-		$data['records'] = $records;
-		
-		$data['attributes'] = $instantiated_class->attributesToArray();
 		
 		return view('milnwee_core.admin.index', $data);
 	}
