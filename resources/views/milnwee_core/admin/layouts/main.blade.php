@@ -9,10 +9,10 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-2">
 				@include('milnwee_core.admin.elements.admin_menu')
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-10">
 				@yield('content')
 			</div>
 		</div>

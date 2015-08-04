@@ -5,8 +5,6 @@ namespace Example\MilnweeCore\Traits;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Pluralizer as Pluralizer;
 
-use Example\MilnweeCore\Traits\AdminVariableSetup;
-
 trait AdminCrud {
 	
 	public $full_class_name;
@@ -26,8 +24,20 @@ trait AdminCrud {
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);
 	}
 	
-	public function getIndex($view = 'milnwee_core.admin.index') {
-		return view($view);
+	public function getIndex() {
+		
+		$data = array(
+			'page_data' => array(
+				'model_class_singular' => $this->model_class,
+				'model_class_plural' => $this->model_class_plural,
+			)
+		);
+		$static_class = '\\Example\\' . $this->model_class;
+		
+		$data['records'] = $static_class::all()->toArray();;
+		
+		
+		return view('milnwee_core.admin.index', $data);
 	}
 	
 	public function getEdit($view = 'milnwee_core.admin.edit') {

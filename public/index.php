@@ -56,3 +56,17 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+
+function debug($data) {
+	
+	echo "<pre>";
+	
+	if (is_array($data)) {
+		print_r($data);
+	} else {
+		echo $data;
+	}
+	
+	echo "</pre>";
+	
+}
