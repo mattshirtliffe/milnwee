@@ -1,13 +1,16 @@
 <?php
 
-namespace Example\MilnweeCore;
+namespace Example\MilnweeCore\Traits;
 
-trait AdminCrud {
+trait AdminCrudModel {
 	
-	public function getIndexColumns() {		
+	public static function getIndexColumns() {
 		$columns = array(
-			
+			'name',
+			'body',
 		);
+		
+		return $columns;
 	}
 	
 	public function getEdit() {

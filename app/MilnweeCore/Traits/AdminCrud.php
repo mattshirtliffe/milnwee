@@ -21,23 +21,30 @@ trait AdminCrud {
 	}
 	
 	public function initialise_admin_routes() {
-		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name);
+		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name, array(
+			'getIndex' => $this->url_slug.'.index',
+			'getIndex' => $this->url_slug,
+			'getEdit' => $this->url_slug . '.edit',
+			'getAdd' => $this->url_slug . '.add',
+		));
 	}
 	
-	public function getIndex() {
+	public function getIndex($view = 'milnwee_core.admin.index') {
 		
 		$data = array(
-			'page_data' => array(
+			'model_data' => array(
 				'model_class_singular' => $this->model_class,
 				'model_class_plural' => $this->model_class_plural,
+				'model_url_slug' => $this->url_slug
 			)
 		);
-		$static_class = '\\Example\\' . $this->model_class;
+		$model = '\\Example\\' . $this->model_class;
 		
-		$data['records'] = $static_class::all()->toArray();;
+		$data['records'] = $model::all()->toArray();
+		$data['index_columns'] = $model::getIndexColumns();
 		
 		
-		return view('milnwee_core.admin.index', $data);
+		return view($view, $data);
 	}
 	
 	public function getEdit($view = 'milnwee_core.admin.edit') {
