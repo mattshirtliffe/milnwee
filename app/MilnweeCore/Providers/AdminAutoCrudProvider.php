@@ -24,11 +24,11 @@ class AdminAutoCrudProvider extends ServiceProvider
                 $class_name = str_replace('.php', '', $class_name);
                 $full_class_name = '\Example\Http\\' . $class_name;
                 $Class = new $full_class_name;
-                if (method_exists($Class, 'initialise_admin_routes')) {
-                    $Class->initialise_admin_routes();
+                if (method_exists($Class, 'admin__initialise_automatic_admin')) {
+                    $Class->admin__initialise_automatic_admin();
                 }
             }
-        }        
+        }
     }
 
     /**
