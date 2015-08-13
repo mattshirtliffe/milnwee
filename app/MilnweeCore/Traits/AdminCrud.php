@@ -4,6 +4,7 @@ namespace Example\MilnweeCore\Traits;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\Pluralizer as Pluralizer;
+use Example\Event as Event;
 
 trait AdminCrud {
 	
@@ -14,7 +15,10 @@ trait AdminCrud {
 	public $url_slug;
 	
 	public $index_columns = array();
-		
+	
+	public $admin_index_columns = array();
+	public $admin_form_fields = array();
+	
 	public function admin__initialise_automatic_admin() {
 		
 		$this->full_class_name = get_class($this);
@@ -24,25 +28,55 @@ trait AdminCrud {
 		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
 		
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name, array(
-			'getIndex' => $this->url_slug.'.index',
 			'getIndex' => $this->url_slug,
+			'getIndex' => $this->url_slug.'.index',
 			'getEdit' => $this->url_slug . '.edit',
 			'getAdd' => $this->url_slug . '.add',
 		));
-		
-		$this->admin__populate_index_columns();
 	}
 	
-	protected function admin__populate_index_columns() {
-		$cols = array();
+	private function generateCrudColumns() {
 		
-		$cols[] = 'name';
-		
+		$cols = array(
+			'name' => array(
+				'label' => 'Name'
+			),
+			'body' => array(
+				'label' => 'Body'
+			),
+			'created_at' => array(
+				'label' => 'Created At'
+			),
+			'updated_at' => array(
+				'label' => 'Updated At'
+			),
+		);
 		
 		return $cols;
 	}
 	
+	private function generateAdminFormFields() {
+				
+		$fields = array(
+			'name' => array(
+				'label' => 'Name',
+				'type' => 'string',
+			),
+			'body' => array(
+				'label' => 'Body',
+				'type' => 'text',
+			),
+			'created_at' => array(
+				'label' => 'Created At',
+				'type' => 'display_only',
+			),
+		);
+		
+		return $fields;
+	}
+	
 	public function getIndex($view = 'milnwee_core.admin.index') {
+		$this->admin__initialise_automatic_admin();
 		
 		$data = array(
 			'model_data' => array(
@@ -51,18 +85,49 @@ trait AdminCrud {
 				'model_url_slug' => $this->url_slug
 			)
 		);
+		
 		$model = '\\Example\\' . $this->model_class;
 		
 		$data['records'] = $model::all()->toArray();
-		$data['index_columns'] = $this->index_columns;
+		
+		$data['index_columns'] = $this->generateCrudColumns();
 		
 		return view($view, $data);
 	}
 	
-	public function getEdit($view = 'milnwee_core.admin.edit') {
-		return view($view);
+	public function getEdit($id, $view = 'milnwee_core.admin.edit') {
+		
+		$this->admin__initialise_automatic_admin();
+		
+		$data = array(
+			'model_data' => array(
+				'model_class_singular' => $this->model_class,
+				'model_class_plural' => $this->model_class_plural,
+				'model_url_slug' => $this->url_slug
+			)
+		);
+		
+		$model = '\\Example\\' . $this->model_class;
+		
+		$data['record'] = $model::find($id)->toArray();
+		
+		$data['form_fields'] = $this->generateAdminFormFields();
+		
+		return view($view, $data);
 	}
+	
 	public function getAdd($view = 'milnwee_core.admin.add') {
-		return view($view);
+		
+		$this->admin__initialise_automatic_admin();
+		
+		$data = array(
+			'model_data' => array(
+				'model_class_singular' => $this->model_class,
+				'model_class_plural' => $this->model_class_plural,
+				'model_url_slug' => $this->url_slug
+			)
+		);
+		
+		return view($view, $data);
 	}
 }

@@ -29,6 +29,7 @@ class AdminAutoCrudProvider extends ServiceProvider
                 }
             }
         }
+        
     }
 
     /**
