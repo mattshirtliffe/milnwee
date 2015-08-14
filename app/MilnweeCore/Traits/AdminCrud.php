@@ -94,7 +94,7 @@ trait AdminCrud {
 		
 		return view($view, $data);
 	}
-	
+
 	public function getEdit($id, $view = 'milnwee_core.admin.edit') {
 		
 		$this->admin__initialise_automatic_admin();
