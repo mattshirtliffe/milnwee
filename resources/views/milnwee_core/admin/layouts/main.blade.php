@@ -13,7 +13,7 @@
 			<div class="col-xs-2">
 				@include('milnwee_core.admin.elements.admin_menu')
 			</div>
-			<div class="col-xs-10">
+			<div class="col-xs-8">
 				@yield('content')
 			</div>
 		</div>
