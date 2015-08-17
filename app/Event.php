@@ -7,5 +7,10 @@ use Example\MilnweeCore\Traits\AdminCrudModel as AdminCrudModel;
 
 class Event extends Model
 {
-	
+	protected $fillable = array(
+		'id',
+		'name',
+		'body',
+		'created_at',
+	);
 }

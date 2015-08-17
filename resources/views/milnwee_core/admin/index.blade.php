@@ -1,9 +1,9 @@
 @extends('milnwee_core.admin.layouts.main')
 @section('content')
-	<h1>{{ $model_data['model_class_plural'] }}</h1>
+	<h1>{{ $model_info['model_class_plural'] }}</h1>
 	
 	<hr>
-		<a href="{{ route($model_data['model_url_slug'] . '.add') }}" class="btn btn-primary">Add new {{ $model_data['model_class_singular'] }}</a>
+		<a href="{{ route($model_info['model_url_slug'] . '.add') }}" class="btn btn-primary">Add new {{ $model_info['model_class_singular'] }}</a>
 	<hr>
 	
 	<table>
@@ -21,8 +21,9 @@
 				@foreach ($index_columns as $col_value => $col_data)
 					<td>{{$record[$col_value]}}</td>
 				@endforeach
-				<td>
-					<a href="{{ route($model_data['model_url_slug'] . '.edit', $record['id']) }}" class="btn btn-primary">Edit</a>
+				<td>				
+					<a class='btn btn-primary' href="{{ route($model_info['model_url_slug'] . '.edit', $record['id']) }}">Edit</a>
+					<a class='btn btn-danger' href="{{ route($model_info['model_url_slug'] . '.delete', $record['id']) }}">Delete</a>
 				</td>
 			</tr>
 			@endforeach

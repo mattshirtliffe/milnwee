@@ -5,15 +5,18 @@ namespace Example\MilnweeCore\Traits;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Pluralizer as Pluralizer;
 use Example\Event as Event;
+use Illuminate\Http\Request;
 
 trait AdminCrud {
 	
-	public $full_class_name;
-	public $alias;
-	public $model_class;
-	public $model_class_plural;
-	public $url_slug;
+	public $full_class_name = null;
+	public $alias = null;
+	public $model_class = null;
+	public $model_class_plural = null;
+	public $url_slug = null;
 	
+	public $view_vars = array();
+
 	public $index_columns = array();
 	
 	public $admin_index_columns = array();
@@ -21,18 +24,31 @@ trait AdminCrud {
 	
 	public function admin__initialise_automatic_admin() {
 		
-		$this->full_class_name = get_class($this);
-		$this->alias = substr($this->full_class_name, strrpos($this->full_class_name, '\\') + 1);
-		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
-		$this->model_class_plural = Pluralizer::plural(str_replace('Controller', '', $this->alias));
-		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
+		$this->prepareControllerData();
 		
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name, array(
 			'getIndex' => $this->url_slug,
 			'getIndex' => $this->url_slug.'.index',
 			'getEdit' => $this->url_slug . '.edit',
+			'postEdit' => $this->url_slug . '.edit',
 			'getAdd' => $this->url_slug . '.add',
+			'postAdd' => $this->url_slug . '.add',
+			'getDelete' => $this->url_slug . '.delete',
 		));
+	}
+	
+	public function prepareControllerData() {
+		$this->full_class_name = get_class($this);
+		$this->alias = substr($this->full_class_name, strrpos($this->full_class_name, '\\') + 1);
+		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
+		$this->model_class_plural = Pluralizer::plural(str_replace('Controller', '', $this->alias));
+		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
+
+		$this->model_info = array(
+			'model_class_singular' => $this->model_class,
+			'model_class_plural' => $this->model_class_plural,
+			'model_url_slug' => $this->url_slug
+		);
 	}
 	
 	private function generateCrudColumns() {
@@ -78,13 +94,7 @@ trait AdminCrud {
 	public function getIndex($view = 'milnwee_core.admin.index') {
 		$this->admin__initialise_automatic_admin();
 		
-		$data = array(
-			'model_data' => array(
-				'model_class_singular' => $this->model_class,
-				'model_class_plural' => $this->model_class_plural,
-				'model_url_slug' => $this->url_slug
-			)
-		);
+		$data = array();
 		
 		$model = '\\Example\\' . $this->model_class;
 		
@@ -92,20 +102,14 @@ trait AdminCrud {
 		
 		$data['index_columns'] = $this->generateCrudColumns();
 		
-		return view($view, $data);
+		return $this->view($view, $data);
 	}
 
 	public function getEdit($id, $view = 'milnwee_core.admin.edit') {
 		
-		$this->admin__initialise_automatic_admin();
+		$this->prepareControllerData();
 		
-		$data = array(
-			'model_data' => array(
-				'model_class_singular' => $this->model_class,
-				'model_class_plural' => $this->model_class_plural,
-				'model_url_slug' => $this->url_slug
-			)
-		);
+		$data = array();
 		
 		$model = '\\Example\\' . $this->model_class;
 		
@@ -113,21 +117,69 @@ trait AdminCrud {
 		
 		$data['form_fields'] = $this->generateAdminFormFields();
 		
-		return view($view, $data);
+		return $this->view($view, $data);
+	}
+	
+	public function postEdit(Request $request) {
+
+		$this->prepareControllerData();
+		
+		$model = '\\Example\\' . $this->model_class;
+		
+		$data = $request->all();
+		
+		$record = $model::find($data['data']['Record']['id']);
+		
+		foreach ($data['data']['Record'] as $field_name => $field_data) {
+			$record->$field_name = $field_data;
+		}
+		
+		$record->save();
+		
+		return redirect(route($this->url_slug . '.index'));
 	}
 	
 	public function getAdd($view = 'milnwee_core.admin.add') {
 		
-		$this->admin__initialise_automatic_admin();
+		$this->prepareControllerData();
 		
-		$data = array(
-			'model_data' => array(
-				'model_class_singular' => $this->model_class,
-				'model_class_plural' => $this->model_class_plural,
-				'model_url_slug' => $this->url_slug
-			)
-		);
+		$data['form_fields'] = $this->generateAdminFormFields();
 		
+		return $this->view($view, $data);
+	}
+
+	public function postAdd(Request $request) {
+
+		$this->prepareControllerData();
+				
+		$model = '\\Example\\' . $this->model_class;
+		
+		$data = $request->all();
+		
+		$model::create($data['data']['Record'])->save();		
+		
+		return redirect(route($this->url_slug . '.index'));
+	}
+	
+	public function getDelete($id) {
+
+		$this->prepareControllerData();
+		
+		$model = '\\Example\\' . $this->model_class;
+
+		$model::destroy($id);
+		
+		return redirect(route($this->url_slug . '.index'));
+	}
+
+	public function getView($id) {
+
+	}
+
+	public function view($view, $data = array()) {
+
+		$data['model_info'] = $this->model_info;
+
 		return view($view, $data);
 	}
 }
