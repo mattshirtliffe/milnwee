@@ -7,25 +7,27 @@ use Illuminate\Support\Pluralizer as Pluralizer;
 use Example\Event as Event;
 use Illuminate\Http\Request;
 
+use Example\MilnweeCore\ViewHelpers\Formhelper;
+
 trait AdminCrud {
-	
+
 	public $full_class_name = null;
 	public $alias = null;
 	public $model_class = null;
 	public $model_class_plural = null;
 	public $url_slug = null;
-	
+
 	public $view_vars = array();
 
 	public $index_columns = array();
-	
+
 	public $admin_index_columns = array();
 	public $admin_form_fields = array();
-	
+
 	public function admin__initialise_automatic_admin() {
-		
+
 		$this->prepareControllerData();
-		
+
 		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name, array(
 			'getIndex' => $this->url_slug,
 			'getIndex' => $this->url_slug.'.index',
@@ -36,7 +38,7 @@ trait AdminCrud {
 			'getDelete' => $this->url_slug . '.delete',
 		));
 	}
-	
+
 	public function prepareControllerData() {
 		$this->full_class_name = get_class($this);
 		$this->alias = substr($this->full_class_name, strrpos($this->full_class_name, '\\') + 1);
@@ -50,9 +52,9 @@ trait AdminCrud {
 			'model_url_slug' => $this->url_slug
 		);
 	}
-	
+
 	private function generateCrudColumns() {
-		
+
 		$cols = array(
 			'name' => array(
 				'label' => 'Name'
@@ -67,13 +69,17 @@ trait AdminCrud {
 				'label' => 'Updated At'
 			),
 		);
-		
+
 		return $cols;
 	}
-	
+
 	private function generateAdminFormFields() {
-				
+
 		$fields = array(
+			'id' => array(
+				'label' => 'ID',
+				'type' => 'id',
+			),
 			'name' => array(
 				'label' => 'Name',
 				'type' => 'string',
@@ -87,88 +93,88 @@ trait AdminCrud {
 				'type' => 'display_only',
 			),
 		);
-		
+
 		return $fields;
 	}
-	
+
 	public function getIndex($view = 'milnwee_core.admin.index') {
 		$this->admin__initialise_automatic_admin();
-		
+
 		$data = array();
-		
+
 		$model = '\\Example\\' . $this->model_class;
-		
+
 		$data['records'] = $model::all()->toArray();
-		
+
 		$data['index_columns'] = $this->generateCrudColumns();
-		
+
 		return $this->view($view, $data);
 	}
 
 	public function getEdit($id, $view = 'milnwee_core.admin.edit') {
-		
+
 		$this->prepareControllerData();
-		
+
 		$data = array();
-		
+
 		$model = '\\Example\\' . $this->model_class;
-		
+
 		$data['record'] = $model::find($id)->toArray();
-		
+
 		$data['form_fields'] = $this->generateAdminFormFields();
-		
+
 		return $this->view($view, $data);
 	}
-	
+
 	public function postEdit(Request $request) {
 
 		$this->prepareControllerData();
-		
+
 		$model = '\\Example\\' . $this->model_class;
-		
+
 		$data = $request->all();
-		
+
 		$record = $model::find($data['data']['Record']['id']);
-		
+
 		foreach ($data['data']['Record'] as $field_name => $field_data) {
 			$record->$field_name = $field_data;
 		}
-		
+
 		$record->save();
-		
+
 		return redirect(route($this->url_slug . '.index'));
 	}
-	
+
 	public function getAdd($view = 'milnwee_core.admin.add') {
-		
+
 		$this->prepareControllerData();
-		
+
 		$data['form_fields'] = $this->generateAdminFormFields();
-		
+
 		return $this->view($view, $data);
 	}
 
 	public function postAdd(Request $request) {
 
 		$this->prepareControllerData();
-				
+
 		$model = '\\Example\\' . $this->model_class;
-		
+
 		$data = $request->all();
-		
-		$model::create($data['data']['Record'])->save();		
-		
+
+		$model::create($data['data']['Record'])->save();
+
 		return redirect(route($this->url_slug . '.index'));
 	}
-	
+
 	public function getDelete($id) {
 
 		$this->prepareControllerData();
-		
+
 		$model = '\\Example\\' . $this->model_class;
 
 		$model::destroy($id);
-		
+
 		return redirect(route($this->url_slug . '.index'));
 	}
 
@@ -177,9 +183,8 @@ trait AdminCrud {
 	}
 
 	public function view($view, $data = array()) {
-
 		$data['model_info'] = $this->model_info;
-
+		$data['FormHelper'] = new FormHelper();
 		return view($view, $data);
 	}
 }
