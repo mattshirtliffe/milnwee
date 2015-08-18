@@ -4,7 +4,8 @@ namespace Example\MilnweeCore\ViewHelpers;
 
 class FormHelper
 {
-	public function field($field_value_name, $field_data, $record) {
+	public function field($field_value_name, $field_data, $record = null) {
+
 		$data = array(
 			'field_value_name' => $field_value_name,
 			'field_data' => $field_data,

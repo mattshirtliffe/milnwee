@@ -8,12 +8,11 @@
 	<hr>
 	<form action="{{ route($model_info['model_url_slug'] . '.edit')}}" method='post'>
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 		@foreach ($form_fields as $field_value_name => $field_data)
-
-		<div class="form-group">
-			{!! $FormHelper->field($field_value_name, $field_data, $record) !!}
-		</div>
-
+			<div class="form-group">
+				{!! $FormHelper->field($field_value_name, $field_data, $record) !!}
+			</div>
 		@endforeach
 
 		<button class='btn btn-primary' type='submit'>Update</button>

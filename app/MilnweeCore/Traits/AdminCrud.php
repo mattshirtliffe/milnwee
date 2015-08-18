@@ -56,6 +56,9 @@ trait AdminCrud {
 	private function generateCrudColumns() {
 
 		$cols = array(
+			'id' => array(
+				'label' => 'ID'
+			),
 			'name' => array(
 				'label' => 'Name'
 			),
@@ -79,6 +82,7 @@ trait AdminCrud {
 			'id' => array(
 				'label' => 'ID',
 				'type' => 'id',
+				'edit_only' => true
 			),
 			'name' => array(
 				'label' => 'Name',
@@ -91,6 +95,7 @@ trait AdminCrud {
 			'created_at' => array(
 				'label' => 'Created At',
 				'type' => 'display_only',
+				'edit_only' => true
 			),
 		);
 
