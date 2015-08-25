@@ -11,7 +11,8 @@ use Example\MilnweeCore\ViewHelpers\Formhelper;
 
 trait AdminCrud {
 
-	public $full_class_name = null;
+	public $full_controller_class_name = null;
+	public $full_model_class_name = null;
 	public $alias = null;
 	public $model_class = null;
 	public $model_class_plural = null;
@@ -19,16 +20,13 @@ trait AdminCrud {
 
 	public $view_vars = array();
 
-	public $index_columns = array();
-
-	public $admin_index_columns = array();
-	public $admin_form_fields = array();
+	public $Model = null;
 
 	public function admin__initialise_automatic_admin() {
 
 		$this->prepareControllerData();
 
-		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_class_name, array(
+		\Route::controller('admin/' . $this->url_slug, '\\' . $this->full_controller_class_name, array(
 			'getIndex' => $this->url_slug,
 			'getIndex' => $this->url_slug.'.index',
 			'getEdit' => $this->url_slug . '.edit',
@@ -40,8 +38,8 @@ trait AdminCrud {
 	}
 
 	public function prepareControllerData() {
-		$this->full_class_name = get_class($this);
-		$this->alias = substr($this->full_class_name, strrpos($this->full_class_name, '\\') + 1);
+		$this->full_controller_class_name = get_class($this);
+		$this->alias = substr($this->full_controller_class_name, strrpos($this->full_controller_class_name, '\\') + 1);
 		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
 		$this->model_class_plural = Pluralizer::plural(str_replace('Controller', '', $this->alias));
 		$this->url_slug = strtolower(Pluralizer::plural($this->model_class));
@@ -51,27 +49,19 @@ trait AdminCrud {
 			'model_class_plural' => $this->model_class_plural,
 			'model_url_slug' => $this->url_slug
 		);
+
+		if (empty($this->model_namespace_path)) {
+			$this->model_namespace_path = '\\Example\\';
+		}
+
+		$this->full_model_class_name = $this->model_namespace_path . $this->model_class;
+		$this->Model = new $this->full_model_class_name;
 	}
 
 	private function generateCrudColumns() {
+		$this->prepareControllerData();
 
-		$cols = array(
-			'id' => array(
-				'label' => 'ID'
-			),
-			'name' => array(
-				'label' => 'Name'
-			),
-			'body' => array(
-				'label' => 'Body'
-			),
-			'created_at' => array(
-				'label' => 'Created At'
-			),
-			'updated_at' => array(
-				'label' => 'Updated At'
-			),
-		);
+		dd($this->Model->indexColumns);
 
 		return $cols;
 	}
@@ -94,7 +84,7 @@ trait AdminCrud {
 			),
 			'created_at' => array(
 				'label' => 'Created At',
-				'type' => 'display_only',
+				'type' => 'datetime',
 				'edit_only' => true
 			),
 		);
@@ -111,7 +101,7 @@ trait AdminCrud {
 
 		$data['records'] = $model::all()->toArray();
 
-		$data['index_columns'] = $this->generateCrudColumns();
+		$data['index_columns'] = $this->Model->indexColumns;
 
 		return $this->view($view, $data);
 	}

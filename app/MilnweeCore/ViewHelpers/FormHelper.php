@@ -23,8 +23,8 @@ class FormHelper
 			case 'text':
 				$html = view('milnwee_core.form_helper.text_field', $data);
 				break;
-			case 'display_only':
-				$html = view('milnwee_core.form_helper.display_only_field', $data);
+			case 'datetime':
+				$html = view('milnwee_core.form_helper.datetime', $data);
 				break;
 		}
 
