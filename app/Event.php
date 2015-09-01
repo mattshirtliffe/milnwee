@@ -3,10 +3,16 @@
 namespace Example;
 
 use Illuminate\Database\Eloquent\Model;
-use Example\MilnweeCore\Traits\AdminCrudModel as AdminCrudModel;
+use MilnweeCore\Traits\AdminCrudModel as AdminCrudModel;
 
 class Event extends Model
 {
+	public $MilnweeCoreComponents = array(
+		'Route' => array(
+			'prefix' => 'events'
+		)
+	);
+
 	public $indexColumns = array(
 		'id' => array(
 			'label' => 'ID'

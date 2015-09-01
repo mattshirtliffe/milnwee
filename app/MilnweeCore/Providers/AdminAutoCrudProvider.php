@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\MilnweeCore\Providers;
+namespace MilnweeCore\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -16,7 +16,7 @@ class AdminAutoCrudProvider extends ServiceProvider
         $path = base_path() . '/app/Http/Controllers';
         $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path), \RecursiveIteratorIterator::SELF_FIRST);
         $admin_menu_items = array();
-        
+
         // load each of our controllers, to register their own routes
         foreach($objects as $name => $object){
             if (substr($name, -4) == '.php') {
@@ -29,7 +29,7 @@ class AdminAutoCrudProvider extends ServiceProvider
                 }
             }
         }
-        
+
     }
 
     /**

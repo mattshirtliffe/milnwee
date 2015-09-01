@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\MilnweeCore\ViewHelpers;
+namespace MilnweeCore\ViewHelpers;
 
 class FormHelper
 {

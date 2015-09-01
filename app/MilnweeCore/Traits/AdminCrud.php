@@ -1,13 +1,12 @@
 <?php
 
-namespace Example\MilnweeCore\Traits;
+namespace MilnweeCore\Traits;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\Pluralizer as Pluralizer;
 use Example\Event as Event;
 use Illuminate\Http\Request;
-
-use Example\MilnweeCore\ViewHelpers\Formhelper;
+use MilnweeCore\ViewHelpers\Formhelper;
 
 trait AdminCrud {
 
@@ -38,6 +37,10 @@ trait AdminCrud {
 	}
 
 	public function prepareControllerData() {
+
+		/*
+		first, we prepare the base data values for names of classes and namespaces
+		 */
 		$this->full_controller_class_name = get_class($this);
 		$this->alias = substr($this->full_controller_class_name, strrpos($this->full_controller_class_name, '\\') + 1);
 		$this->model_class = Pluralizer::singular(str_replace('Controller', '', $this->alias));
@@ -56,6 +59,19 @@ trait AdminCrud {
 
 		$this->full_model_class_name = $this->model_namespace_path . $this->model_class;
 		$this->Model = new $this->full_model_class_name;
+
+		/*
+		then we attach any of the milnweecore components
+		 */
+
+		foreach ($this->MilnweeCoreComponents as $componentName => $component) {
+
+			if (is_array($component)) {
+
+			} else {
+				$this->attachMilnweeCoreComponentDefaults($component)
+			}
+		}
 	}
 
 	private function generateCrudColumns() {
@@ -64,6 +80,10 @@ trait AdminCrud {
 		dd($this->Model->indexColumns);
 
 		return $cols;
+	}
+
+	private function attachMilnweeCoreComponentDefaults($componentName) {
+
 	}
 
 	private function generateAdminFormFields() {
@@ -92,12 +112,15 @@ trait AdminCrud {
 		return $fields;
 	}
 
+	/**
+	 * primary action for indexing
+	 */
 	public function getIndex($view = 'milnwee_core.admin.index') {
 		$this->admin__initialise_automatic_admin();
 
 		$data = array();
 
-		$model = '\\Example\\' . $this->model_class;
+		$model = $this->model_namespace_path . $this->model_class;
 
 		$data['records'] = $model::all()->toArray();
 
@@ -112,7 +135,7 @@ trait AdminCrud {
 
 		$data = array();
 
-		$model = '\\Example\\' . $this->model_class;
+		$model = $this->model_namespace_path . $this->model_class;
 
 		$data['record'] = $model::find($id)->toArray();
 
@@ -125,7 +148,7 @@ trait AdminCrud {
 
 		$this->prepareControllerData();
 
-		$model = '\\Example\\' . $this->model_class;
+		$model = $this->model_namespace_path . $this->model_class;
 
 		$data = $request->all();
 
@@ -153,7 +176,7 @@ trait AdminCrud {
 
 		$this->prepareControllerData();
 
-		$model = '\\Example\\' . $this->model_class;
+		$model = $this->model_namespace_path . $this->model_class;
 
 		$data = $request->all();
 
@@ -166,7 +189,7 @@ trait AdminCrud {
 
 		$this->prepareControllerData();
 
-		$model = '\\Example\\' . $this->model_class;
+		$model = $this->model_namespace_path . $this->model_class;
 
 		$model::destroy($id);
 
