@@ -4,7 +4,7 @@ namespace MilnweeCore\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Route extends Model
+class Image extends Model
 {
     public $fillable = array(
         'id',
@@ -16,7 +16,7 @@ class Route extends Model
         'updated_at',
     );
 
-    public function routeable() {
+    public function imageable() {
         return $this->morphTo();
     }
 }

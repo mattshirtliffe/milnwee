@@ -32,7 +32,7 @@ __Developer friendly, totally customisable__ - Milnwee isn't a huge monolith tha
 ````
 - Define a resource route for your controller. Stick something like the following in your routes file;
 ````
-Route::resource('admin/puppies', 'puppies');
+Route::resource('admin/puppies', 'PuppiesController');
 ````
 - And that should be it! Go to your new route, and you should get an index page. You should be able to add, edit and delete records for your new model, and it should be magically autoloading all the fields and everything for you on your add and edit forms.
 - Current component test - use and add the `MilnweeCore\Traits\RouteableTrait` to a model - you should magically get the field to define a route for the record, which is automatically saved into a single polymorphic many-to-many table.

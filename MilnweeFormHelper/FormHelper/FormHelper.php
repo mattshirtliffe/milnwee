@@ -13,7 +13,6 @@ class FormHelper {
 	protected $_baseModel = null;
 	protected $_requestData = array();
 
-
 	protected $_extraModels = array();
 
 	protected $_fieldSettings = array();

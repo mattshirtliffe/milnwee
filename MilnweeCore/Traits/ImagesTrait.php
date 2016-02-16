@@ -4,25 +4,25 @@ namespace MilnweeCore\Traits;
 
 trait ImagesTrait {
     public function images(){
-        return $this->morphOne('MilnweeCore\Models\Route', 'routeable');
+        return $this->morphOne('MilnweeCore\Models\Image', 'imageable');
     }
 
     public function saveImages($model, $associationData) {
         if (!empty($associationData['id'])) {
-            $route = Route::find($associationData['id']);
+            $image = Image::find($associationData['id']);
         } else {
-            $route = new Route();
+            $image = new Image();
         }
 
-        $route->routeable_id = $model->id;
-        $route->routeable_type = get_class($model);
+        $image->routeable_id = $model->id;
+        $image->routeable_type = get_class($model);
         foreach ($associationData as $key => $value) {
             if ($key == 'slug') {
                 $value = str_slug($value);
             }
-            $route->$key = $value;
+            $image->$key = $value;
         }
 
-        $route->save();
+        $image->save();
     }
 }
