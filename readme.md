@@ -43,3 +43,9 @@ Route::resource('admin/puppies', 'puppies');
 - Automate the building of the routes for the controllers (had an idea for this but it's pretty gross, come up with something better)
 - Image trait, so we have a couple of different Milnwee components to test and play with
 - Some way for the admin interface to rub on tabs (and make these easy to define)
+
+### Longterm TODO ideas
+
+- No reason everything can't be out in a composer package and brought in. Do that. No need for people to clone
+a repo of it and build of top of it like lunatics.
+- User system. Obviously has to be an admin system in place.
