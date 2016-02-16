@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    echo "this is the plain admin response";
-});
+Route::resource('admin/events', 'EventsController');
+Route::resource('admin/pages', 'PagesController');
+Route::resource('admin/routes', 'RoutesController');

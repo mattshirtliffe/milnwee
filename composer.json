@@ -16,10 +16,13 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+			"database"
         ],
         "psr-4": {
-            "Example\\": "app/"
+            "Example\\": "app/",
+            "MilnweeCore\\": "MilnweeCore",
+            "MilnweeFormHelper\\": "MilnweeFormHelper",
+            "MilnweeBreadcrumbs\\": "MilnweeBreadcrumbs"
         }
     },
     "autoload-dev": {

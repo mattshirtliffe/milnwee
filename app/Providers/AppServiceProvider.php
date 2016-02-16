@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+    	$path = base_path() . DIRECTORY_SEPARATOR . 'MilnweeForHelper' . DIRECTORY_SEPARATOR  . 'Views';
+    	$this->loadViewsFrom($path, 'formhelper');
     }
 
     /**

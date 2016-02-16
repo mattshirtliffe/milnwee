@@ -2,9 +2,12 @@
 
 namespace Example\Http\Controllers;
 
-use Example\MilnweeCore\Traits\AdminCrud as AdminCrud;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
-class PagesController extends BaseController {
-	use AdminCrud;
+use Example\Http\Requests;
+use MilnweeCore\Controllers\MilnweeCoreController as MilneweeCoreController;
+
+class PagesController extends MilneweeCoreController
+{
+
 }
